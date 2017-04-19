@@ -1,0 +1,45 @@
+<div class="header">
+	<a href="/" id="home">Home</a>
+	<%if logged_in?%>
+		<a href="/logout">Logout</a>
+		<a href="/profile">Profile</a>
+		<a href="/<%=current_user.id%>/user_answer">My Answers</a>
+		<a href="/<%=current_user.id%>/user_question">My Questions</a>
+	<%else%>
+		<a href="/login">Login</a>
+	<%end%>
+<!-- list all questions -->
+</div>
+<!-- list particulat question and its answers -->
+<div class="question_page">
+	<h1><%=@question.text%></h1>
+	Posted by: 
+	<%if @question.user == nil%>
+		Anonymous
+	<%else%>
+		<%if @question.user.name == nil%> 
+			<a href="/<%=@question.user.id%>/user_question"><%=@question.user.email%></a>
+		<%else%>
+			<a href="/<%=@question.user.id%>/user_question"><%=@question.user.name%></a>
+		<%end%>
+	<%end%>
+	on <%=@question.created_at%><br><br>
+	<%@question.answers.each do |ans|%>
+		<%=ans.text%><br>
+		Reply by: 
+		<%if ans.user == nil%>
+			Anonymous
+		<%else%>
+			<%if ans.user.name == nil%> 
+				<a href="/<%=ans.user.id%>/user_question"><%=ans.user.email%></a>
+			<%else%>
+				<a href="/<%=ans.user.id%>/user_question"><%=ans.user.name%></a>
+			<%end%>
+		<%end%>
+		on <%=ans.created_at%><br><br>
+	<%end%>
+	<form action="/answer" method = "post">
+	<input type="text" name="answer" placeholder="Reply to question...">
+	<input type="submit" name="reply" value="Reply">
+	</form>
+</div>

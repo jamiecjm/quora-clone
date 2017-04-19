@@ -1,0 +1,19 @@
+<div class="header">
+	<a href="/" id="home">Home</a>
+	<%if logged_in?%>
+		<a href="/logout">Logout</a>
+		<a href="/profile">Profile</a>
+		<a href="/<%=current_user.id%>/user_answer">My Answers</a>
+		<a href="/<%=current_user.id%>/user_question">My Questions</a>
+	<%else%>
+		<a href="/login">Login</a>
+	<%end%>
+<!-- list all questions -->
+</div>
+<div class="user_answer_page">
+	<%current_user.answers.each do |ans|%>
+		<%=ans.text%><br><br>
+		Reply on <%=ans.created_at%> to<br>
+		<a href="/question/<%=ans.question.id%>"><%=ans.question.text%></a><br><br>
+	<%end%>
+</div>

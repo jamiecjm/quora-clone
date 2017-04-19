@@ -1,0 +1,95 @@
+/*Header+++++++++++++++++++++++++++++++++++++++++*/
+.header a {
+	text-decoration: none;
+	color:orange;
+	border: 1px solid orange;
+    border-radius: 10px;
+    float:right;
+    width:10%;
+    padding: 1%;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.header a:hover {
+	color:white;
+	border-color: white;
+	background-color: orange;
+}
+
+#home {
+    float:left;
+}
+/*Header+++++++++++++++++++++++++++++++++++++++++*/
+
+/*Index Page+++++++++++++++++++++++++++++++++++++*/
+.index_page {
+	clear:both;
+	padding-top: 5%;
+}
+
+/*Index Page+++++++++++++++++++++++++++++++++++++*/
+
+/*Login Page+++++++++++++++++++++++++++++++++++++*/
+.login_page {
+	border:1px solid black;
+	text-align: center;
+	margin: 10% 30%;
+	width:30%;
+	padding: 45px;
+	clear:both;
+}
+
+.login_section {
+	text-align: left;
+	margin-left: 35%;
+}
+/*Login Page+++++++++++++++++++++++++++++++++++++*/
+
+/*Profile Page+++++++++++++++++++++++++++++++++++++++++*/
+.profile_page td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding:10px;
+}
+
+.profile_page table{
+	border-collapse: collapse;
+}
+
+.profile_page {
+	clear:both;
+	padding-top: 5%;
+	margin: 0% 35%;
+}
+
+#edit_profile {
+	margin-top: 2%
+}
+
+.profile_page input{
+	border: none;
+	padding:10px;
+}
+/*Profile Page+++++++++++++++++++++++++++++++++++++++++*/
+
+/*Question Page++++++++++++++++++++++++++++++++++++++++*/
+.question_page {
+	clear:both;
+	padding-top: 5%;
+}
+/*Question Page++++++++++++++++++++++++++++++++++++++++*/
+
+/*User Question Page++++++++++++++++++++++++++++++++++++++++*/
+.user_question_page {
+	clear:both;
+	padding-top: 5%;
+}	
+/*User Question Page++++++++++++++++++++++++++++++++++++++++*/
+
+/*User Answer Page++++++++++++++++++++++++++++++++++++++++*/
+.user_answer_page {
+	clear:both;
+	padding-top: 5%;
+}	
+/*User Answer Page++++++++++++++++++++++++++++++++++++++++*/

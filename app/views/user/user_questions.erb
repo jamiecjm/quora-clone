@@ -1,0 +1,18 @@
+<div class="header">
+	<a href="/" id="home">Home</a>
+	<%if logged_in?%>
+		<a href="/logout">Logout</a>
+		<a href="/profile">Profile</a>
+		<a href="/<%=current_user.id%>/user_answer">My Answers</a>
+		<a href="/<%=current_user.id%>/user_question">My Questions</a>
+	<%else%>
+		<a href="/login">Login</a>
+	<%end%>
+<!-- list all questions -->
+</div>
+<div class = "user_question_page">
+<%@user.questions.all.each do |q|%>
+	<a href="/question/<%=q.id%>"><h2><%=q.text%></h2></a>
+	Posted on <%=q.created_at%><br>
+<%end%>
+</div>

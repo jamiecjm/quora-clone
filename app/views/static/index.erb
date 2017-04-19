@@ -1,2 +1,32 @@
-<h1>Hello World</h1>
-<p>See Me in views/static/index.html.erb</p>
+<div class="header">
+	<a href="/" id="home">Home</a>
+	<%if logged_in?%>
+		<a href="/logout">Logout</a>
+		<a href="/profile">Profile</a>
+		<a href="/<%=current_user.id%>/user_answer">My Answers</a>
+		<a href="/<%=current_user.id%>/user_question">My Questions</a>
+	<%else%>
+		<a href="/login">Login</a>
+	<%end%>
+<!-- list all questions -->
+</div>
+<div class="index_page">
+<form action ='/question' method="post">
+	<input type="text" placeholder="Ask a question" name="question">
+	<input type="submit" value="Ask" name="ask">
+</form>
+<%Question.all.each do |q|%>
+	<a href="/question/<%=q.id%>"><h2><%=q.text%></h2></a>
+	Posted by: 
+	<%if q.user == nil%>
+		Anonymous
+	<%else%>
+		<%if q.user.name == nil%> 
+			<a href="/<%=q.user.id%>/user_question"><%=q.user.email%></a>
+		<%else%>
+			<a href="/<%=q.user.id%>/user_question"><%=q.user.name%></a>
+		<%end%> 
+	<%end%>
+	on <%=q.created_at%><br>
+<%end%>
+</div>

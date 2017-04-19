@@ -1,0 +1,34 @@
+<div class="header">
+	<a href="/" id="home">Home</a>
+	<%if logged_in?%>
+		<a href="/logout">Logout</a>
+		<a href="/profile">Profile</a>
+		<a href="/<%=current_user.id%>/user_answer">My Answers</a>
+		<a href="/<%=current_user.id%>/user_question">My Questions</a>
+	<%else%>
+		<a href="/login">Login</a>
+	<%end%>
+<!-- list all questions -->
+</div>
+<div class="profile_page">
+<form action="/edit_profile" method="post" id="user_profile">
+<table>
+	<tbody>
+		<tr>
+			<td> Name </td>
+			<td> <input name="name" value="<%=@user.name%>" disabled></td>
+		</tr>
+		<tr>
+			<td> Email </td>
+			<td> <input name="email" value="<%=@user.email%>" disabled> </td>
+		</tr>
+	</tbody>
+</table>
+<!-- <input type="submit" id="edit_profile" value="Update"> -->
+</form>
+<button type ="button" id="edit_profile">Edit</button>
+</div>
+
+
+
+

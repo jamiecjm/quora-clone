@@ -12,7 +12,17 @@
 </div>
 <div class = "user_question_page">
 <%@user.questions.all.each do |q|%>
-	<a href="/question/<%=q.id%>"><h2><%=q.text%></h2></a>
+	<a href="/question/<%=q.id%>"><h3><%=q.text%></h3></a>
 	Posted on <%=q.created_at%><br>
+	<%if current_user.upvoted_question?(q)%>
+		<a href="/qupvote/<%=q.id%>" id ="qvote">Voted</a><%=q.questionvotes.where(vote_type: true).count%>
+	<%else%>
+		<a href="/qupvote/<%=q.id%>" id ="qvote">Vote</a><%=q.questionvotes.where(vote_type: true).count%>
+	<%end%>
+	<%if current_user.downvoted_question?(q)%>
+		<a href="/qdownvote/<%=q.id%>" id ="qdownvote">Downvoted</a><%=q.questionvotes.where(vote_type: false).count%><br><br>
+	<%else%>
+		<a href="/qdownvote/<%=q.id%>" id ="qdownvote">Downvote</a><%=q.questionvotes.where(vote_type: false).count%><br><br>
+	<%end%>
 <%end%>
 </div>

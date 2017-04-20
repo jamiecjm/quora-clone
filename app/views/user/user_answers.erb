@@ -12,8 +12,18 @@
 </div>
 <div class="user_answer_page">
 	<%current_user.answers.each do |ans|%>
-		<%=ans.text%><br><br>
-		Reply on <%=ans.created_at%> to<br>
-		<a href="/question/<%=ans.question.id%>"><%=ans.question.text%></a><br><br>
+		<h3><%=ans.text%></h3>
+		<%if current_user.upvoted_answer?(ans)%>
+			<a href="/aupvote/<%=ans.id%>" id ="avote">Voted</a><%=ans.answervotes.where(vote_type: true).count%>
+		<%else%>
+			<a href="/aupvote/<%=ans.id%>" id ="avote">Vote</a><%=ans.answervotes.where(vote_type: true).count%>
+		<%end%>
+		<%if current_user.downvoted_answer?(ans)%>
+			<a href="/adownvote/<%=ans.id%>" id ="adownvote">Downvoted</a><%=ans.answervotes.where(vote_type: false).count%><br>
+		<%else%>
+			<a href="/adownvote/<%=ans.id%>" id ="adownvote">Downvote</a><%=ans.answervotes.where(vote_type: false).count%><br>
+		<%end%>
+		Replied on <%=ans.created_at%> to<br>
+		<a href="/question/<%=ans.question.id%>"><%=ans.question.text%></a><br>
 	<%end%>
 </div>

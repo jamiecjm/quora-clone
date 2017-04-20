@@ -12,7 +12,7 @@
 </div>
 <!-- list particulat question and its answers -->
 <div class="question_page">
-	<h1><%=@question.text%></h1>
+	<h2><%=@question.text%></h2>
 	Posted by: 
 	<%if @question.user == nil%>
 		Anonymous
@@ -23,10 +23,21 @@
 			<a href="/<%=@question.user.id%>/user_question"><%=@question.user.name%></a>
 		<%end%>
 	<%end%>
-	on <%=@question.created_at%><br><br>
-	<%@question.answers.each do |ans|%>
+	on <%=@question.created_at%><br>
+	<%if current_user.upvoted_question?(@question)%>
+		<a href="/qupvote/<%=@question.id%>" id ="qvote">Voted</a><%=@question.questionvotes.where(vote_type: true).count%>
+	<%else%>
+		<a href="/qupvote/<%=@question.id%>" id ="qvote">Vote</a><%=@question.questionvotes.where(vote_type: true).count%>
+	<%end%>
+	<%if current_user.downvoted_question?(@question)%>
+		<a href="/qdownvote/<%=@question.id%>" id ="qdownvote">Downvoted</a><%=@question.questionvotes.where(vote_type: false).count%><br><br>
+	<%else%>
+		<a href="/qdownvote/<%=@question.id%>" id ="qdownvote">Downvote</a><%=@question.questionvotes.where(vote_type: false).count%><br><br>
+	<%end%>
+
+	<%@question.answers.topvoted.each do |ans|%>
 		<%=ans.text%><br>
-		Reply by: 
+		Replied by: 
 		<%if ans.user == nil%>
 			Anonymous
 		<%else%>
@@ -36,8 +47,20 @@
 				<a href="/<%=ans.user.id%>/user_question"><%=ans.user.name%></a>
 			<%end%>
 		<%end%>
-		on <%=ans.created_at%><br><br>
+		on <%=ans.created_at%><br>
+
+		<%if current_user.upvoted_answer?(ans)%>
+			<a href="/aupvote/<%=ans.id%>" id ="avote">Voted</a><%=ans.answervotes.where(vote_type: true).count%>
+		<%else%>
+			<a href="/aupvote/<%=ans.id%>" id ="avote">Vote</a><%=ans.answervotes.where(vote_type: true).count%>
+		<%end%>
+		<%if current_user.downvoted_answer?(ans)%>
+			<a href="/adownvote/<%=ans.id%>" id ="adownvote">Downvoted</a><%=ans.answervotes.where(vote_type: false).count%><br><br>
+		<%else%>
+			<a href="/adownvote/<%=ans.id%>" id ="adownvote">Downvote</a><%=ans.answervotes.where(vote_type: false).count%><br><br>
+		<%end%>
 	<%end%>
+
 	<form action="/answer" method = "post">
 	<input type="text" name="answer" placeholder="Reply to question...">
 	<input type="submit" name="reply" value="Reply">

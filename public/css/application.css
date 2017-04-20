@@ -1,3 +1,19 @@
+/*General========================================*/
+body {
+	background-color: antiquewhite;
+}
+
+.list{
+	border-bottom:1px solid black;
+	margin: 0% 15%;
+	padding: 2%;
+}
+
+.flash {
+	color:red;
+}
+/*General========================================*/
+
 /*Header+++++++++++++++++++++++++++++++++++++++++*/
 .header a {
 	text-decoration: none;
@@ -12,8 +28,8 @@
 }
 
 .header a:hover {
-	color:white;
-	border-color: white;
+	color:antiquewhite;
+	border-color: antiquewhite;
 	background-color: orange;
 }
 
@@ -23,11 +39,26 @@
 /*Header+++++++++++++++++++++++++++++++++++++++++*/
 
 /*Index Page+++++++++++++++++++++++++++++++++++++*/
+
+.index_page form{
+	border-bottom:1px solid black;
+	margin: 0% 15%;
+	padding: 2%;
+}
+
+.index_page #ask_question{
+	width: 90%;
+	height: 5%;
+}
+
 .index_page {
 	clear:both;
 	padding-top: 5%;
 }
 
+.details {
+	font-size:12px;
+}
 /*Index Page+++++++++++++++++++++++++++++++++++++*/
 
 /*Login Page+++++++++++++++++++++++++++++++++++++*/

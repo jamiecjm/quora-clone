@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 	# This is Sinatra! Remember to create a migration!
 	has_many :questions,:dependent => :destroy
 	has_many :answers,:dependent => :destroy
+	has_many :questionvotes,:dependent => :destroy
+	has_many :answervotes,:dependent => :destroy
 	has_secure_password
 
 	validates	:email, uniqueness: {message: "Email already existed"}
@@ -21,4 +23,49 @@ class User < ActiveRecord::Base
 	def valid_password?
 		self.password =~/^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/
 	end
+
+	def upvoted_question?(q)
+		voted = false
+		self.questionvotes.each do |qv|
+			if qv.question.id == q.id && qv.vote_type == true
+				voted = true 
+				break
+			end
+		end
+		voted
+	end
+
+	def downvoted_question?(q)
+		voted = false
+		self.questionvotes.each do |qv|
+			if qv.question.id == q.id && qv.vote_type == false
+				voted = true 
+				break
+			end
+		end
+		voted
+	end
+
+	def upvoted_answer?(a)
+		voted = false
+		self.answervotes.each do |av|
+			if av.answer.id == a.id && av.vote_type == true
+				voted = true 
+				break
+			end
+		end
+		voted
+	end
+
+	def downvoted_answer?(a)
+		voted = false
+		self.answervotes.each do |av|
+			if av.answer.id == a.id && av.vote_type == false
+				voted = true 
+				break
+			end
+		end
+		voted
+	end
+
 end

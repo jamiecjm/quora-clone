@@ -12,21 +12,48 @@
 </div>
 <div class="index_page">
 <form action ='/question' method="post">
-	<input type="text" placeholder="Ask a question" name="question">
+	<input type="text" placeholder="Ask a question" name="question" id ="ask_question">
 	<input type="submit" value="Ask" name="ask">
 </form>
-<%Question.all.each do |q|%>
-	<a href="/question/<%=q.id%>"><h2><%=q.text%></h2></a>
-	Posted by: 
-	<%if q.user == nil%>
-		Anonymous
-	<%else%>
-		<%if q.user.name == nil%> 
-			<a href="/<%=q.user.id%>/user_question"><%=q.user.email%></a>
+
+<%Question.topvoted.each do |qn|%>
+<div class="list">
+	<a href="/question/<%=qn.id%>"><h3><%=qn.text%></h3></a>
+	<span class = "details">Posted by: 
+		<%if qn.user == nil%>
+			Anonymous
 		<%else%>
-			<a href="/<%=q.user.id%>/user_question"><%=q.user.name%></a>
-		<%end%> 
-	<%end%>
-	on <%=q.created_at%><br>
+			<%if qn.user.name == nil%> 
+				<a href="/<%=qn.user.id%>/user_question"><%=qn.user.email%></a>
+			<%else%>
+				<a href="/<%=qn.user.id%>/user_question"><%=qn.user.name%></a>
+			<%end%> 
+		<%end%>
+
+
+		on <%=qn.created_at%><br>
+		<div class="vote_button">
+			<%if current_user.upvoted_question?(qn)%>
+				<a href="qupvote/<%=qn.id%>">Voted</a>
+				<span><%=qn.questionvotes.where(vote_type: true).count%></span>
+			<%else%>
+				<a href="qupvote/<%=qn.id%>">Vote</a>
+				<span><%=qn.questionvotes.where(vote_type: true).count%></span>
+			<%end%>
+
+
+			<%if current_user.downvoted_question?(qn)%>
+				<a href="qdownvote/<%=qn.id%>">Downvoted</a>
+				<span><%=qn.questionvotes.where(vote_type: false).count%></span><br><br>
+			<%else%>
+				<a href="qdownvote/<%=qn.id%>">Downvote</a>
+				<span><%=qn.questionvotes.where(vote_type: false).count%></span><br><br>
+			<%end%>
+		</div>
+	</span>
+	<%top_answer = qn.answers.topvoted[0]%>
+	<%=top_answer.text if qn.answers != []%>
+</div>
 <%end%>
+
 </div>
